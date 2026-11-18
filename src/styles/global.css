@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+@theme {
+    --color-jhz-navy: #0f294a;
+    --color-jhz-navy-dark: #091a30;
+    --color-jhz-blue: #1d4ed8;
+    --color-jhz-gold: #eab308;
+    --color-jhz-gold-light: #fef08a;
+    --color-jhz-surface: #f8fafc;
+
+    // fuentes
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        font-family: var(--font-sans);
+        color: #1e293b;
+        background-color: #ffffff;
+    }
+
+    h1,h2,h3,h4 {
+        font-family: var(--font-display);
+    }
+}
