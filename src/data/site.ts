@@ -33,6 +33,15 @@ export const  MAIN_NAV:  NavItem[] = [
         href: '/' 
     },
     {
+      label: 'Ciclos',
+      href: '/ciclos',
+      children: [
+        { label: 'Pre Básica', href: '/pre-basica' },
+        { label: 'Enseñanza Básica', href: '/ensenanza-basica' },
+        { label: 'Enseñanza Media', href: '/ensenanza-media' },
+      ],
+    },
+    {
         label: 'Colegio',
         href: '/colegio',
         children: [

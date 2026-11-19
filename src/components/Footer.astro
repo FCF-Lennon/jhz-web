@@ -1,13 +1,14 @@
 ---
 import { SITE_INFO } from '../data/site';
+import SocialLinks from './SocialLinks.astro';
 
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-jhz-navy-dark text-slate-300 border-t-4 border-jhz-gold">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-      <!-- Columna 1: Identidad Institucional -->
+      <!-- Columna 1: Identidad Institucional (Escudo intacto) -->
       <div class="space-y-4">
         <div class="flex items-center gap-3">
           <img
@@ -16,7 +17,7 @@ const currentYear = new Date().getFullYear();
             width="64"
             height="64"
             loading="lazy"
-            class="w-16 h-16 object-contain bg-white rounded-xl p-1"
+            class="w-16 h-16 object-contain bg-white rounded-xl p-1 shrink-0"
           />
           <div>
             <h2 class="text-white font-bold text-base leading-snug">
@@ -30,28 +31,9 @@ const currentYear = new Date().getFullYear();
         <p class="text-sm text-slate-400 leading-relaxed">
           “{SITE_INFO.motto}”
         </p>
-        <!-- Sellos y alianzas -->
-        <div class="flex items-center gap-3 pt-2">
-          <img
-            src="https://jhz.cl/wp-content/uploads/2022/09/Escuela-sustentable.png"
-            alt="Certificación Escuela Sustentable"
-            width="56"
-            height="56"
-            loading="lazy"
-            class="w-14 h-14 object-contain bg-white/95 rounded-lg p-1"
-          />
-          <img
-            src="https://jhz.cl/wp-content/uploads/2022/09/Crece-Saludable-2.png"
-            alt="Programa Crece Saludable"
-            width="72"
-            height="54"
-            loading="lazy"
-            class="h-14 w-auto object-contain bg-white/95 rounded-lg p-1"
-          />
-        </div>
       </div>
 
-      <!-- Columna 2: Contacto (visible en móvil, tablet y escritorio) -->
+      <!-- Columna 2: Contacto -->
       <div class="space-y-4">
         <h3 class="text-white font-bold text-sm uppercase tracking-wider">
           Contacto
@@ -136,23 +118,62 @@ const currentYear = new Date().getFullYear();
         </form>
       </div>
     </div>
+
+    <!-- Franja de Sellos, Trayectoria y Alianzas (Sin fondo blanco y a mayor tamaño) -->
+    <div class="mt-12 pt-8 border-t border-slate-800/80">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center">
+        <img
+          src="https://jhz.cl/wp-content/uploads/2022/09/logo-29-214x300-1.png"
+          alt="30 años educando con amor"
+          width="114"
+          height="160"
+          loading="lazy"
+          class="h-28 sm:h-32 w-auto object-contain transition-transform hover:scale-105"
+        />
+
+        <a
+          href="https://escuelaslideres.cl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Red de Escuelas Líderes"
+          class="transition-transform hover:scale-105"
+        >
+          <img
+            src="https://jhz.cl/wp-content/uploads/2022/09/red-escuelas-lideres3.png"
+            alt="Red de Escuelas Líderes"
+            width="220"
+            height="123"
+            loading="lazy"
+            class="h-24 sm:h-28 w-auto object-contain"
+          />
+        </a>
+
+        <img
+          src="https://jhz.cl/wp-content/uploads/2022/09/Escuela-sustentable.png"
+          alt="Certificación Ambiental Escuela Sustentable"
+          width="140"
+          height="140"
+          loading="lazy"
+          class="h-28 sm:h-32 w-auto object-contain transition-transform hover:scale-105"
+        />
+
+        <img
+          src="https://jhz.cl/wp-content/uploads/2022/09/Crece-Saludable-2.png"
+          alt="Programa Crece Saludable"
+          width="180"
+          height="135"
+          loading="lazy"
+          class="h-28 sm:h-32 w-auto object-contain transition-transform hover:scale-105"
+        />
+      </div>
+    </div>
   </div>
 
-  <!-- Barra inferior copyright y redes (con enlace real a YouTube) -->
+<!-- Barra inferior copyright y redes -->
   <div class="border-t border-slate-800 bg-black/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
       <p>© {currentYear} {SITE_INFO.name}. Todos los derechos reservados.</p>
-      <div class="flex items-center gap-5">
-        <a href={SITE_INFO.socials.instagram} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
-          Instagram
-        </a>
-        <a href={SITE_INFO.socials.facebook} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
-          Facebook
-        </a>
-        <a href={SITE_INFO.socials.youtube} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
-          YouTube
-        </a>
-      </div>
+      <SocialLinks variant="dark" />
     </div>
   </div>
 </footer>
