@@ -12,7 +12,7 @@ export interface NavItem {
 
 export const SITE_INFO = {
     name: 'Colegio Bicentenario Jorge Huneeus Zegers',
-    shotName: 'Colegio JHZ',
+    shortName: 'Colegio JHZ',
     motto: 'Lideres en formación valórica, educación emocional e innovación pedagógica',
     description: 'Centro Educacional Bicentenario Jorge Huneeus Zegers en la Pintana. Educación Pre Básica, Básica y Media Técnico Profesional con enfoque en formación integral y excelencia académica',
     phone: '+56 2 26567925',

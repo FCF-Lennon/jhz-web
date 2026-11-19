@@ -1,20 +1,16 @@
 ---
-import Navbar  from "../components/Navbar.astro";
-import Footer  from "../components/Footer.astro";
+import MainLayout from '../layouts/MainLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<Navbar />
-		<h1>Astro</h1>
-		<Footer />
-	</body>
-</html>
+<MainLayout title="Colegio JHZ – Vista previa de navegación">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+    <div class="p-8 rounded-2xl bg-jhz-surface border border-slate-200 text-center">
+      <h1 class="text-2xl font-bold text-jhz-navy">
+        Prueba de Navbar y Footer JHZ
+      </h1>
+      <p class="text-slate-600 mt-2">
+        Prueba achicar la ventana a tamaño teléfono para verificar el menú hamburguesa único.
+      </p>
+    </div>
+  </section>
+</MainLayout>

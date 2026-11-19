@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import Navbar  from '../components/Navbar.astro';
+import Footer  from '../components/Footer.astro';
+import { SITE_INFO } from '../data/site';
+
+interface Props {
+    title?: string;
+    description?: string;
+    ogImage?: string;
+}
+
+const {
+    title = `${SITE_INFO.shortName} – ${SITE_INFO.name}`,
+    description = SITE_INFO.description,
+    ogImage = SITE_INFO.logoUrl,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://jhz.cl');
+
+const schoolSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'School',
+    name: SITE_INFO.name,
+    url: 'https://jhz.cl',
+    logo: SITE_INFO.logoUrl,
+    telephone: SITE_INFO.phone,
+    email: SITE_INFO.email,
+    address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Avenida Santa Rosa 10934',
+        addressLocality: 'La Pintana',
+        addressRegion: 'Región Metropolitana',
+        addressCountry: 'CL',
+    },
+    sameAs: [
+        SITE_INFO.socials.instagram,
+        SITE_INFO.socials.facebook,
+        SITE_INFO.socials.youtube,
+    ],
+};
+
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/jpeg" href="https://jhz.cl/wp-content/uploads/2022/09/cropped-Logo_JHZ_ESCUDO-32x32.jpg" />
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Tipografías optimizadas (solo 2 familias y pesos necesarios) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Datos Estructurados SEO Local -->
+    <script type="application/ld+json" set:html={JSON.stringify(schoolSchema)} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-slate-800 antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-jhz-gold focus:text-jhz-navy-dark focus:font-bold focus:rounded-lg">
+      Saltar al contenido principal
+    </a>
+
+    <Navbar />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
