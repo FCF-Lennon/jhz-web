@@ -1,0 +1,158 @@
+---
+import { SITE_INFO } from '../data/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-jhz-navy-dark text-slate-300 border-t-4 border-jhz-gold">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Columna 1: Identidad Institucional -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <img
+            src={SITE_INFO.logoUrl}
+            alt={`Escudo ${SITE_INFO.name}`}
+            width="64"
+            height="64"
+            loading="lazy"
+            class="w-16 h-16 object-contain bg-white rounded-xl p-1"
+          />
+          <div>
+            <h2 class="text-white font-bold text-base leading-snug">
+              {SITE_INFO.name}
+            </h2>
+            <p class="text-xs text-jhz-gold font-medium mt-0.5">
+              La Pintana • Santiago
+            </p>
+          </div>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          “{SITE_INFO.motto}”
+        </p>
+        <!-- Sellos y alianzas -->
+        <div class="flex items-center gap-3 pt-2">
+          <img
+            src="https://jhz.cl/wp-content/uploads/2022/09/Escuela-sustentable.png"
+            alt="Certificación Escuela Sustentable"
+            width="56"
+            height="56"
+            loading="lazy"
+            class="w-14 h-14 object-contain bg-white/95 rounded-lg p-1"
+          />
+          <img
+            src="https://jhz.cl/wp-content/uploads/2022/09/Crece-Saludable-2.png"
+            alt="Programa Crece Saludable"
+            width="72"
+            height="54"
+            loading="lazy"
+            class="h-14 w-auto object-contain bg-white/95 rounded-lg p-1"
+          />
+        </div>
+      </div>
+
+      <!-- Columna 2: Contacto (visible en móvil, tablet y escritorio) -->
+      <div class="space-y-4">
+        <h3 class="text-white font-bold text-sm uppercase tracking-wider">
+          Contacto
+        </h3>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-jhz-gold shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{SITE_INFO.address}</span>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-jhz-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <a href={`tel:${SITE_INFO.phone.replace(/\s+/g, '')}`} class="hover:text-white transition-colors">
+              {SITE_INFO.phone}
+            </a>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-jhz-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href={`mailto:${SITE_INFO.email}`} class="hover:text-white transition-colors">
+              {SITE_INFO.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Enlaces y Redes -->
+      <div class="space-y-4">
+        <h3 class="text-white font-bold text-sm uppercase tracking-wider">
+          Accesos Directos
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/admision" class="hover:text-jhz-gold transition-colors">Proceso de Admisión 2027</a></li>
+          <li><a href="https://jhz.cl/notasnet/" target="_blank" rel="noopener noreferrer" class="hover:text-jhz-gold transition-colors">Plataforma Notasnet</a></li>
+          <li><a href="https://escuelaslideres.cl/" target="_blank" rel="noopener noreferrer" class="hover:text-jhz-gold transition-colors">Red de Escuelas Líderes</a></li>
+          <li><a href="https://feizh.cl/" target="_blank" rel="noopener noreferrer" class="hover:text-jhz-gold transition-colors">Fundación FEIZH</a></li>
+          <li><a href="/noticias" class="hover:text-jhz-gold transition-colors">Noticias y Actividades</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Boletín -->
+      <div class="space-y-4">
+        <h3 class="text-white font-bold text-sm uppercase tracking-wider">
+          Recibe Nuestro Boletín
+        </h3>
+        <p class="text-xs text-slate-400">
+          Entérate de fechas de admisión, actividades escolares y comunicados oficiales.
+        </p>
+        <form class="space-y-2.5" action="#" method="post">
+          <div>
+            <label for="newsletter-name" class="sr-only">Nombre</label>
+            <input
+              id="newsletter-name"
+              type="text"
+              name="nombre"
+              placeholder="Tu nombre"
+              class="w-full px-3.5 py-2 rounded-lg bg-jhz-navy border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-jhz-gold"
+            />
+          </div>
+          <div>
+            <label for="newsletter-email" class="sr-only">Correo electrónico</label>
+            <input
+              id="newsletter-email"
+              type="email"
+              name="email"
+              required
+              placeholder="tu@correo.cl"
+              class="w-full px-3.5 py-2 rounded-lg bg-jhz-navy border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-jhz-gold"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full py-2.5 px-4 rounded-lg bg-jhz-gold text-jhz-navy-dark font-bold text-sm hover:bg-yellow-400 transition-colors cursor-pointer"
+          >
+            Suscribirme
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra inferior copyright y redes (con enlace real a YouTube) -->
+  <div class="border-t border-slate-800 bg-black/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <p>© {currentYear} {SITE_INFO.name}. Todos los derechos reservados.</p>
+      <div class="flex items-center gap-5">
+        <a href={SITE_INFO.socials.instagram} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+          Instagram
+        </a>
+        <a href={SITE_INFO.socials.facebook} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+          Facebook
+        </a>
+        <a href={SITE_INFO.socials.youtube} target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+          YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
