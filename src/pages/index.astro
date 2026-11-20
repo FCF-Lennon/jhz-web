@@ -1,18 +1,86 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import Hero  from '../components/Hero.astro';
+import Hero from '../components/Hero.astro';
+import NewsCard from '../components/NewsCard.astro';
+
+import { getNoticias } from '../lib/wordpress';
+
+const noticias = await getNoticias(8);
 ---
 
-<MainLayout title="Colegio JHZ – Vista previa de navegación">
+<MainLayout>
   <Hero />
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-    <div class="p-8 rounded-2xl bg-jhz-surface border border-slate-200 text-center">
-      <h1 class="text-2xl font-bold text-jhz-navy">
-        Prueba de Navbar y Footer JHZ
-      </h1>
-      <p class="text-slate-600 mt-2">
-        Prueba achicar la ventana a tamaño teléfono para verificar el menú hamburguesa único.
-      </p>
+
+  <!-- Sección de Noticias extraídas desde WordPress REST API -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- Encabezado limpio sin azul eléctrico -->
+      <div class="mb-10">
+        <span class="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
+          Actualidad Escolar
+        </span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-jhz-navy mt-1">
+          Noticias
+        </h2>
+        <div class="w-12 h-1 bg-jhz-gold mt-3 rounded-xs"></div>
+      </div>
+
+      {noticias.length > 0 ? (
+        <>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {noticias.map((noticia) => (
+              <NewsCard noticia={noticia} />
+            ))}
+          </div>
+
+          <!-- Enlace debajo de las tarjetas alineado a la derecha -->
+          <div class="mt-8 flex justify-end">
+            <!-- Vista Teléfono y Tablet (intacto) -->
+            <a
+              href="/noticias"
+              class="lg:hidden inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-jhz-navy hover:bg-jhz-navy hover:text-white hover:border-jhz-navy transition-colors"
+            >
+              <span>Ver todas las noticias</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+
+            <!-- Vista PC: tipografía suavizada con flecha inferior desplegable en hover -->
+            <a
+              href="/noticias"
+              class="hidden lg:inline-flex group relative flex-col items-start py-1.5 text-sm font-medium text-slate-600 hover:text-jhz-navy transition-colors"
+            >
+              <span> Más noticias...</span>
+              <span
+                aria-hidden="true"
+                class="mt-1 flex items-center w-0 overflow-hidden opacity-0 transition-all duration-300 ease-out group-hover:w-full group-hover:opacity-100"
+              >
+                <span class="h-[2px] flex-1 bg-jhz-gold"></span>
+                <svg
+                  class="w-3 h-3 -ml-1 shrink-0 text-jhz-gold"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 2l6 4-6 4" />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </>
+      ) : (
+        <div class="p-8 rounded-lg bg-jhz-surface border border-slate-200 text-center text-slate-600">
+          No se pudieron cargar las noticias en este momento. Visita{' '}
+          <a href="https://jhz.cl/noticias/" class="text-jhz-navy font-semibold underline">
+            jhz.cl/noticias
+          </a>.
+        </div>
+      )}
     </div>
   </section>
+
 </MainLayout>
