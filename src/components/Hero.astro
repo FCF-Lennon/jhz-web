@@ -95,20 +95,26 @@ const INITIAL_POSTER = `https://i.ytimg.com/vi/${VIDEO_ID}/hq1.jpg`;
   const wrapperEl = document.getElementById('hero-yt-wrapper');
   const posterEl = document.getElementById('hero-initial-poster');
   const videoId = playerEl?.getAttribute('data-video-id');
+  // Segundo exacto donde jhz.cl corta el bucle ("background_video_end": 132)
+  const VIDEO_END_SECONDS = 132;
 
   function initHeroPlayer() {
     if (!playerEl || !videoId || !window.YT?.Player) return;
 
-    new window.YT.Player('hero-yt-player', {
+    let hasRevealed = false;
+
+    const player = new window.YT.Player('hero-yt-player', {
       videoId,
       playerVars: {
         autoplay: 1,
         mute: 1,
+        start: 0,
+        end: VIDEO_END_SECONDS,
         controls: 0,
         showinfo: 0,
         rel: 0,
-        loop: 1,
-        playlist: videoId,
+        fs: 0,
+        cc_load_policy: 0,
         playsinline: 1,
         modestbranding: 1,
         iv_load_policy: 3,
@@ -118,15 +124,36 @@ const INITIAL_POSTER = `https://i.ytimg.com/vi/${VIDEO_ID}/hq1.jpg`;
         onReady: (event: any) => {
           event.target.mute();
           event.target.playVideo();
+
+          // Bucle fluido: reinicia a 0s medio segundo antes de llegar a 132s para evitar pantallas finales
+          setInterval(() => {
+            if (typeof event.target.getCurrentTime === 'function') {
+              const current = event.target.getCurrentTime();
+              if (current >= VIDEO_END_SECONDS - 0.5) {
+                event.target.seekTo(0, true);
+                event.target.playVideo();
+              }
+            }
+          }, 250);
         },
         onStateChange: (event: any) => {
-          if (event.data === 1) {
-            wrapperEl?.classList.remove('opacity-0');
-            wrapperEl?.classList.add('opacity-100');
-            // Oculta la imagen de respaldo una vez que el video ya cubrió la pantalla
+          // YT.PlayerState.PLAYING === 1
+          if (event.data === 1 && !hasRevealed) {
+            hasRevealed = true;
+            // Espera 500ms para que YouTube oculte sus controles iniciales antes de mostrar el video
             setTimeout(() => {
-              posterEl?.classList.add('hidden');
-            }, 550);
+              wrapperEl?.classList.remove('opacity-0');
+              wrapperEl?.classList.add('opacity-100');
+              setTimeout(() => {
+                posterEl?.classList.add('hidden');
+              }, 550);
+            }, 500);
+          }
+
+          // Respaldo por si alcanza el estado ENDED (0)
+          if (event.data === 0) {
+            event.target.seekTo(0, true);
+            event.target.playVideo();
           }
         },
       },
