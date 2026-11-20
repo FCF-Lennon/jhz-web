@@ -1,0 +1,194 @@
+---
+import { SITE_INFO } from '../data/site';
+
+const VIDEO_ID = 'I1Cblx5pTns';
+// Miniatura del tramo inicial (vista aérea) para carga instantánea en 0ms
+const INITIAL_POSTER = `https://i.ytimg.com/vi/${VIDEO_ID}/hq1.jpg`;
+---
+
+<section class="relative w-full min-h-[480px] sm:min-h-[560px] lg:min-h-[620px] flex items-center bg-jhz-navy-dark text-white overflow-hidden">
+  <!-- Contenedor de Video Full-Bleed -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden bg-jhz-navy-dark">
+    <!-- 1. Fotograma inicial de la vista aérea visible desde el milisegundo 0 -->
+    <img
+      id="hero-initial-poster"
+      src={INITIAL_POSTER}
+      alt=""
+      aria-hidden="true"
+      fetchpriority="high"
+      class="yt-crop-frame object-cover"
+    />
+
+    <!-- 2. Reproductor YouTube desplazado levemente hacia arriba para ocultar la marca de agua superior -->
+    <div id="hero-yt-wrapper" class="yt-cover-wrapper opacity-0 transition-opacity duration-500">
+      <div
+        id="hero-yt-player"
+        data-video-id={VIDEO_ID}
+      ></div>
+    </div>
+
+    <!-- Capa de degradado para contraste del texto -->
+    <div class="absolute inset-0 bg-gradient-to-r from-jhz-navy-dark/85 via-jhz-navy-dark/50 to-jhz-navy-dark/25"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-jhz-navy-dark/65 via-transparent to-jhz-navy-dark/25"></div>
+  </div>
+
+  <!-- Contenido superpuesto -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
+    <div class="max-w-3xl space-y-5">
+      <div class="hero-animate hero-delay-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-jhz-gold text-xs font-bold uppercase tracking-widest">
+        <span class="w-2 h-2 rounded-full bg-jhz-gold animate-pulse"></span>
+        Colegio Bicentenario • La Pintana
+      </div>
+
+      <h1 class="hero-animate hero-delay-2 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white drop-shadow-sm">
+        Colegio Bicentenario <span class="text-jhz-gold">Jorge Huneeus Zegers</span>
+      </h1>
+
+      <p class="hero-animate hero-delay-3 text-base sm:text-xl text-slate-100/95 font-medium leading-relaxed border-l-4 border-jhz-gold pl-4 italic max-w-2xl">
+        “{SITE_INFO.motto}”
+      </p>
+
+      <div class="hero-animate hero-delay-4 pt-3 flex flex-wrap items-center gap-3.5">
+        <a
+          href="/admision"
+          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-jhz-gold text-jhz-navy-dark font-extrabold text-sm sm:text-base hover:bg-yellow-400 hover:-translate-y-0.5 transition-all shadow-lg shadow-black/25"
+        >
+          <span>Admisión 2027</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+
+        <a
+          href="https://jhz.cl/prepara-con-tiempo-el-regreso-a-clases-2026-descarga-ahora-la-lista-de-utiles-por-nivel-y-especialidad/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/25 font-bold text-sm sm:text-base hover:-translate-y-0.5 transition-all"
+        >
+          <svg class="w-4 h-4 text-jhz-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span>Lista de Útiles 2026</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divisor diagonal en la base -->
+  <div class="absolute bottom-0 left-0 right-0 z-10 pointer-events-none leading-none">
+    <svg class="w-full h-8 sm:h-12 lg:h-16 text-white" viewBox="0 0 1440 74" preserveAspectRatio="none" fill="currentColor">
+      <path d="M0,74 L1440,74 L1440,12 L0,68 Z" opacity="0.35"></path>
+      <path d="M0,74 L1440,74 L1440,34 L0,74 Z"></path>
+    </svg>
+  </div>
+</section>
+
+<script>
+  declare global {
+    interface Window {
+      YT: any;
+      onYouTubeIframeAPIReady: () => void;
+    }
+  }
+
+  const playerEl = document.getElementById('hero-yt-player');
+  const wrapperEl = document.getElementById('hero-yt-wrapper');
+  const posterEl = document.getElementById('hero-initial-poster');
+  const videoId = playerEl?.getAttribute('data-video-id');
+
+  function initHeroPlayer() {
+    if (!playerEl || !videoId || !window.YT?.Player) return;
+
+    new window.YT.Player('hero-yt-player', {
+      videoId,
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        showinfo: 0,
+        rel: 0,
+        loop: 1,
+        playlist: videoId,
+        playsinline: 1,
+        modestbranding: 1,
+        iv_load_policy: 3,
+        disablekb: 1,
+      },
+      events: {
+        onReady: (event: any) => {
+          event.target.mute();
+          event.target.playVideo();
+        },
+        onStateChange: (event: any) => {
+          if (event.data === 1) {
+            wrapperEl?.classList.remove('opacity-0');
+            wrapperEl?.classList.add('opacity-100');
+            // Oculta la imagen de respaldo una vez que el video ya cubrió la pantalla
+            setTimeout(() => {
+              posterEl?.classList.add('hidden');
+            }, 550);
+          }
+        },
+      },
+    });
+  }
+
+  if (window.YT && window.YT.Player) {
+    initHeroPlayer();
+  } else {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+    window.onYouTubeIframeAPIReady = initHeroPlayer;
+  }
+</script>
+
+<style>
+  .yt-cover-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* Desplaza ligeramente hacia arriba y amplía un 18% en vertical para ocultar la marca de agua superior derecha */
+  .yt-crop-frame,
+  .yt-cover-wrapper :global(iframe) {
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 66vw;
+    min-height: 118%;
+    min-width: 1280px;
+    border: 0;
+  }
+
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-animate {
+    opacity: 0;
+    animation: heroFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .hero-delay-1 { animation-delay: 0.1s; }
+  .hero-delay-2 { animation-delay: 0.25s; }
+  .hero-delay-3 { animation-delay: 0.42s; }
+  .hero-delay-4 { animation-delay: 0.58s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>
